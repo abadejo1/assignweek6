@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: employees
+  labels:
+    app: employees
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: employees
+  template:
+    metadata:
+      labels:
+        app: employees
+    spec:
+      containers:
+      - name: webapp
+        image: 151660158095.dkr.ecr.us-east-1.amazonaws.com/clo835-assignment2-webapp:webapplication
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DBUSER
+          value: "root"
+        - name: DBPWD
+          value: "pw"
+        - name: DBPORT
+          value: "3306"
+        - name: DBHOST
+          value: "10.244.0.8"
+        - name: APP_COLOR
+          value: "blue"
+   
